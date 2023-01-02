@@ -1,0 +1,54 @@
+div.inlineimage {
+    max-width: 470px;
+    /* margin-right: auto !important; */
+    margin-left: 38% !important;
+    /* align-content: center; */
+    position: relative;
+}
+
+h6.lab{
+    text-align: center;
+}
+
+button.cust-btn2 {
+    background-color: #ffffff !important;
+    border-color: #872999 !important;
+    /* color:rgba(0,0,0,0) !important; */
+    /* color: white; */
+    padding: 7px 15px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    font-size: 16px !important;
+    margin: 0px 0px !important;
+    cursor: pointer;
+    border-radius: 20px !important;
+}
+
+button.cust-btn2:hover {
+    background-color: #872999 !important;
+    border-color: #872999 !important;
+    color: white;
+
+}
+
+img.images {
+    /* display: inline-block; */
+    max-width: 98%;
+    height: auto;
+    width: 22%;
+    /* margin: 1%; */
+    /* left: 20px; */
+    /* margin-left: 50%;
+    margin-right: 50%; */
+}
+
+h1.titlePay{
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #872999;
+    text-align: center;
+    margin-bottom: 1rem;
+    margin-top: 7rem;
+    font-family: 'open sans', sans-serif !important;
+}

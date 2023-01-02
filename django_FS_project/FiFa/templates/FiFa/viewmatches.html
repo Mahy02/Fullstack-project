@@ -1,0 +1,50 @@
+{% extends "FiFa/base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>Welcome to Fifa 2023 Matches!</h1>
+    <br>
+    <br>
+    
+    <!--adding a button for reservation/ should check if he is logged in first-->
+    <br>
+    <!--adding a button for reservation/ should check if he is logged in first-->
+  
+    {% for match in matches %}
+         <!--table of 9 rows 2 cols-->
+         <table   class="tablee" style="width: 100%">
+            <tr> <!--first row-->
+                <th colspan="2" style="text-align: center; color: darkgreen;">Match {{match.id}}</th>
+            </tr>
+            <tr><!--sec row-->
+                <th>Teams:</th>
+                <td>{{match.team_1}} vs {{match.team_2}} </td>
+            </tr>
+
+            <tr><!--forth row-->
+                <th>Date and Time:</th>
+                <td>{{match.date_and_time}} </td>
+            </tr>
+            <tr><!--fifth row-->
+                <th>Venue:</th>
+                <td>{{match.venue.name}} </td>
+            </tr>
+
+
+        </table>
+        <br>
+        {% if user.is_authenticated %}
+        <form action= "reservation/" method="POST">
+            {% csrf_token %} 
+            <div class="form-group">
+                <button class="cust-btn" type="submit" value="{{match.id}}" name="btn" > Reserve this match</button>
+            </div>
+        </form>
+        
+         {% endif %}
+        <!--adding a button for reservation/ should check if he is logged in first-->
+       
+
+    {% endfor %}
+
+{% endblock content %}

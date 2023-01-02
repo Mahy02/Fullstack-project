@@ -1,0 +1,28 @@
+{% extends "FiFa/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section" style="margin: top 10px;"> 
+	<form method="POST">
+<!--we need to add a CSRF token "hidden tag to protect form agianst certain attacks-->
+	{% csrf_token %} 
+<!--now we can access form variable we passed but we need a fieldset tag which is used to group related elements in a form and a legend for our form as well-->
+	<fieldset class="form-group"> 
+		<legend class="border-bottom mb-4"> Join Today </legend>
+		    <!--{{ u_form|crispy }}-->  <!--Print out form-->
+			{{ p_form|crispy }}
+	</fieldset>
+    <!--we need a submit button-->
+	<div class="form-group">
+		<button class="btn btn-outline-info" type="submit"> Sign Up </button>
+	</div>
+	</form>
+    <!--we want to put a message if they already have an account then login-->
+	<div class="border-top pt-3">
+		<small class="text-muted"> 
+            <!--text then link to loginpage-->
+			Already Have an Account? <a class="ml-2" href="{% url 'login' %}"> Log In </a>
+		 </small>
+	</div>
+</div>
+
+{% endblock content %}

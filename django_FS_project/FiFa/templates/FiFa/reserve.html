@@ -1,0 +1,138 @@
+{% extends "FiFa/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+<!--
+it should include content for specific match we want to get the match content=>get venue and from venue=>get seats and rows
+where we will do a table of buttons where button will have a seat shape and color[accoridng to reservation adn empty or full]
+table rows are given and to know how many seats (columns) per row then seats/row 
+-->
+<!-- <script  type="text/javascript" src="../../static/FiFa/res.js"></script> -->
+<script type="text/javascript">
+  const seat_res = [];
+  var match_no = 0;
+  total_seats = 0;
+  total_price = 0;
+  ticket_price = 500;
+  function set_match(id) {
+    match_no = id;
+    // alert(match_no);
+  }
+  function my_toggle(id) {
+    // seat_res[0]=value;
+
+    var x = document.getElementById(id);
+    x.classList.toggle('selected')
+    if (seat_res.includes(id)) {
+      const index = seat_res.indexOf(id);
+      seat_res.splice(index, 1);
+      total_seats -= 1;
+
+    }
+    else {
+      seat_res.push(id);
+      total_seats += 1;
+
+    }
+    total_price = ticket_price * total_seats;
+    document.getElementById("count").innerHTML = total_seats;
+    document.getElementById("total").innerHTML = total_price;
+
+
+  }
+  function test(id, value) {
+
+    set_match(value);
+    my_toggle(id);
+
+  };
+
+  function get_tickets() {
+    var elem = document.getElementById("btn");
+    seat_res.push(match_no);
+    elem.value = seat_res;
+  }
+  ;
+
+</script>
+<h2 style="margin-top: 6.5rem; font-family: 'open sans', sans-serif !important;">Choose Your seats: </h2>
+
+<div class="movie-container">
+  <label>Key: </label>
+  <ul class="showcase">
+    <li>
+      <div class="seat"></div>
+      <small>Free</small>
+    </li>
+    <li>
+      <div class="seat selected"></div>
+      <small>Selected</small>
+    </li>
+    <li>
+      <div class="seat occupied"></div>
+      <small>Occupied</small>
+    </li>
+  </ul>
+  <div>Ticket price= 500</div>
+  {% for matc in match %}
+
+  <div class="containerr">
+
+    {% with num=matc.venue.rows %}
+    {% for i in "x"|rjust:num %}
+    {% with val1=forloop.counter %}
+
+    <div class="row">
+
+
+      {% for i in "x"|rjust:matc.venue.seats %}
+      {% with val2=forloop.counter %}
+
+      {% for seat in seats %}
+      {% if seat.row == val1 and seat.column == val2 %}
+
+      {% if seat.id in tickets %}
+      <button class="seat occupied"> </button>
+      {% else %}
+      <button class="seat" id="{{seat.id}}" value="{{matc.id}}" onclick="test(id,value)"></button>
+      {% endif %}
+
+      {% endif %}
+      {% endfor %}
+      {% endwith %}
+      {% endfor %}
+      {% endwith %}
+
+
+
+    </div>
+
+    {% endfor %}
+    {% endwith num %}
+
+
+    <p class="text">
+      You have selected <span id="count">0</span> seats for the total price of EGP. <span id="total">0</span>
+    </p>
+  </div>
+
+</div>
+
+{% endfor %}
+
+
+
+
+
+<form method="POST" action="payment/">
+  {% csrf_token %}
+  <div class="form-group">
+    <button class="cust-btn" type="submit" name="confirm" id="btn" onclick="get_tickets()" value=""> Confirm
+    </button>
+  </div>
+</form>
+
+{% endblock content %}

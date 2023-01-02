@@ -1,0 +1,22 @@
+{% extends "FiFa/base.html" %}
+{% load static %}
+{% block content %}
+    <h2>You have been Logged Out</h2>
+	<div class="border-top pt-3">
+		<small class="text-muted"> 
+            <!--text then link to loginpage-->
+			<br>
+			<br>
+			<img 
+			 class="home-img" src="https://laxmanbaralblog.com/wp-content/uploads/2022/12/20221220_064027.png"
+			 alt="Fifa cup"
+			 style="width: 650px; margin-left: 0px;" />
+			<div style="font-size: 26pt; color: black; font-family: 'open sans', sans-serif !important; "> Eager to see you again !</div>
+			<div style="font-size: 20pt; font-family: 'open sans', sans-serif !important;"> To dive back <a  href="{% url 'login' %}" style="color: #6f42c1 !important;"> Log In Again</a>
+
+			</div> 
+		 </small>
+	</div>
+
+
+{% endblock content %}

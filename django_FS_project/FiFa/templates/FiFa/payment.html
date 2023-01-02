@@ -1,0 +1,84 @@
+{% extends "FiFa/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- <script>
+    const forminput = document.getElementById(".form-input");
+    const formbutton = document.getElementById(".form-button");
+
+    formbutton.ariaDisabled = true;
+
+    forminput.addEventListener('keyup', buttonState)
+
+    function buttonState() {
+        if (document.querySelector(".form-input").value === "") {
+            formbutton.ariaDisabled = true; // return disabled as true whenever the input field is empty
+        } else {
+            formbutton.ariaDisabled = false; // enable the button once the input field has content
+        }
+    }
+
+    formbutton.addEventListener('click', () => {
+        console.log("button clicked");
+    })
+</script> -->
+<div style="margin-top: 100px;">
+  <h1 class="titlePay" style="text-align: center;">Credit Card Payment</h1>
+</div>
+<div class="text-center"><h3>Payment Details</h3></div>
+
+<div class="inlineimage" style="margin-left: 300px;">
+  <img
+    class="images"
+    src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Mastercard-Curved.png"
+  />
+  <img
+    class="images"
+    src="https://cdn0.iconfinder.com/data/icons/credit-card-debit-card-payment-PNG/128/Paypal-Curved.png"
+  />
+</div>
+<form role="form" method="POST"  action= "confirm/">
+  <div class="row">
+    <div class="col-xs-12 col-md-5 pull-right">
+      <div class="form-group">
+        <h6 class="lab" style="text-align: center;">CARD NUMBER</h6>
+        <div class="input-group">
+          <input
+          type="tel"
+            class="form-control"
+            placeholder="Valid Card Number"
+            required 
+            minlength="6" 
+            maxlength="6"
+          >
+          <span class="input-group-addon"
+            ><span class="fa fa-credit-card"></span
+          ></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-5">
+      <div class="form-group">
+        <h6 class="lab" style="text-align: center;">CVC</h6>
+        <input type="tel" class="form-control" placeholder="CVC"   required minlength="3" maxlength="3"/>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="panel-footer">
+    <div class="row">
+       
+            {% csrf_token %} 
+            <div class="form-group">
+                <button class="cust-btn" type="submit" name="pay"  value="{{user.id}}"> Confirm Payment </button>
+            </div>
+     
+    </div>
+</div>
+</form>
+
+{% endblock content %}

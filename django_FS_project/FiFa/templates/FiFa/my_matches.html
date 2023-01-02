@@ -1,0 +1,57 @@
+{% extends "FiFa/base.html" %}
+{% load static %}
+
+{% block content %}
+<br> <br><br><br><br>
+    <h1>Welcome to Fifa 2023 Matches!</h1>
+    <br>
+    <br>
+    
+    <!--adding a button for reservation/ should check if he is logged in first-->
+    <br>
+    <!--adding a button for reservation/ should check if he is logged in first-->
+  
+
+    {% for tick in tickets %}
+         <!--table of 9 rows 2 cols-->
+         <table   class="tablee" style="width: 100%">
+        
+            <tr><!--sec row-->
+                <th>Teams:</th>
+                <td>{{tick.match.team_1}} vs {{tick.match.team_2}} </td>
+            </tr>
+
+            <tr><!--forth row-->
+                <th>Date and Time:</th>
+                <td>{{tick.match.date_and_time}} </td>
+            </tr>
+            <tr><!--fifth row-->
+                <th>Venue:</th>
+                <td>{{tick.match.venue}} </td>
+            </tr>
+            <tr><!--fifth row-->
+                <th>Seat number:</th>
+                <td>{{tick.ticket_seat.id}} </td>
+            </tr>
+
+
+        </table>
+        <br>
+    
+        <form action= "{% url 'delete' %}" method="POST">
+            {% csrf_token %} 
+            <div class="form-group">
+                <button class="cust-btn" type="submit" value="{{tick.id}}" name="del" > Cancel this reservation</button>
+            </div>
+        </form>
+        
+        <!--adding a button for reservation/ should check if he is logged in first-->
+       
+
+    {% endfor %}
+
+ 
+    
+
+
+{% endblock content %}

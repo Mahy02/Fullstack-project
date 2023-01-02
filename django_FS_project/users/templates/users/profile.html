@@ -1,0 +1,81 @@
+{% extends "FiFa/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block content %}
+
+
+<script type="text/javascript" >
+        function editdb(){
+          $.ajax({
+              url: '/edit-database/',
+              type: 'POST',
+              data:{
+                  request_status: 'requested'
+              },
+              success: function(response){
+                  console.log(response);
+              }
+          });
+        }
+</script>
+
+
+<!--we just need to print out user info-->
+<div class="content-section" >
+    <div class="media">
+      <div class="media-body">
+        <h2 class="account-heading">Welcom to your Profile {{ user.username }} !</h2>
+        <br>
+        <br>
+        <h4 style="color: darkgreen;"> Profile Information:</h4>
+        <br>
+        <p class="text-secondary"> <b style="color:black;">User Name: </b>{{ user.username }}</p>
+        <p class="text-secondary"> <b style="color:black;">Email Address:</b> {{ user.email}}</p>
+        <p class="text-secondary"> <b style="color:black;">First Name:</b> {{ profile.first_name }}</p>
+        <p class="text-secondary"> <b style="color:black;">Last Name:</b> {{ profile.last_name }}</p>
+        <p class="text-secondary"> <b style="color:black;">Gender:</b> {{ profile.gender }}</p>
+        <p class="text-secondary"> <b style="color:black;">Birth_date:</b> {{ profile.birth_date }}</p>
+        <p class="text-secondary"> <b style="color:black;">Nationality:</b> {{ profile.nationality }}</p>
+        <p class="text-secondary"> <b style="color:black;">Request_status:</b> {{ profile.request_status }}</p>
+
+   
+
+
+
+<br>
+<br>
+<br>
+<form method="POST" action="{% url 'confirm_req' %}">
+  {% csrf_token %} 
+<button class="cust-btn" style="align-self: center;" onclick="editdb()" name="authority" value="{{user.id}}"> Request an authority </button>
+</form>
+
+
+        <!--now we want to add a edit button  except for email address and username-->
+        <br>
+        <br>
+        
+      </div>
+    </div>
+    <hr>
+    <!-- FORM HERE -->
+    <form method="POST" novalidate>
+        <!--we need to add a CSRF token "hidden tag to protect form agianst certain attacks-->
+        {% csrf_token %} 
+        <!--now we can access form variable we passed but we need a fieldset tag which is used to group related elements in a form and a legend for our form as well-->
+        <fieldset class="form-group"> 
+            <legend class="border-bottom mb-4"> Updating Info </legend>
+              <!--Print out form-->
+              
+                {{ p_form|crispy }}
+        </fieldset>
+            <!--we need a submit button-->
+        <div class="form-group">
+            <button class="cust-btn" type="submit"> Update  </button>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}
